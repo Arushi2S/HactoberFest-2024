@@ -1,0 +1,34 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+void generateKLengthStrings(char *set, char *result, int k, int pos) {
+    if (pos == k) {
+        result[pos] = '\0';
+        printf("%s\n", result);
+        return;
+    }
+
+    for (int i = 0; i < strlen(set); i++) {
+        result[pos] = set[i];
+        generateKLengthStrings(set, result, k, pos + 1);
+    }
+}
+
+int main() {
+    char set[MAX_LENGTH];
+    int k;
+
+    printf("Enter characters (without spaces): ");
+    scanf("%s", set);
+    
+    printf("Enter the length of strings (K): ");
+    scanf("%d", &k);
+
+    char *result = (char *)malloc((k + 1) * sizeof(char));
+    printf("All possible %d-length strings:\n", k);
+    generateKLengthStrings(set, result, k, 0);
+    
+    free(result);
+    return 0;
+}
